@@ -1,17 +1,21 @@
 let express = require ('express');
 let router = express.Router();
+let parser = require ('body-parser');
 
 // Get all Pokemons
 router.get('/', (req, res) => {
     let pokemon = require ('../models/pokemon');
-    pokemon.find((rows) => {
+    pokemon.findAll((rows) => {
         res.send(rows)
     });
 })
 
-// Get all Pokemons
+// Get one pokemon by id
 router.get('/:id', (req, res) => {
-    res.send('Pokemon avec l\'id ' + req.params.id );
+    let pokemon = require ('../models/pokemon');
+    pokemon.findById(req.params.id,(rows) => {
+        res.send(rows)
+    });
 })
 
 module.exports = router;
